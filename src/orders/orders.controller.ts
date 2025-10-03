@@ -31,6 +31,9 @@ export class OrdersController {
   @Get('findByID/:id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.client.send({cmd: 'findOneOrder'},{id})
+    .pipe(
+      catchError(err => {throw new RpcException(err)})
+    )
   }
   
   //FIND BY STATUS
